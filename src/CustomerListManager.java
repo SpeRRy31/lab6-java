@@ -13,9 +13,9 @@ public class CustomerListManager implements CustomerManager{
 
     //do generate customers
 
-/*
 
-    public void createCustomers(){
+
+    public void createCustomers(int count){
         String nameArray [] = {"Kate",
                 "Colt",
                 "Eren",
@@ -68,16 +68,20 @@ public class CustomerListManager implements CustomerManager{
                 "Shevchenko Square ",
                 "Wolf str. ",
                 "Crimson str. "};
-        for (int i = 0; i < customerArray.length; i ++){
+        for (int i = 0; i < count; i ++){
             String surname = surnameArray[(int)(Math.random()*surnameArray.length)];
             String name = nameArray[(int)(Math.random()*nameArray.length)];
             String fathername = nameArray[(int)(Math.random()*nameArray.length)];
             String address = addressArray[(int)(Math.random()*addressArray.length)] + (int)(Math.random()*40);
 
-            customerArray[i] = new Customer(i, surname, name, fathername, address, "1000" + i, "444" + i, Math.random()*1200);
+            customerList.add(new Customer(i, surname, name, fathername, address, "1000" + i, "444" + i, Math.random()*1200));
         }
     }
-*/
+    public void createCustomers(){
+        Scanner s = new Scanner(System.in);
+        System.out.printf("Input count customers: ");
+        this.createCustomers(s.nextInt());
+    }
 
     public void printCustomers(){
         for (Customer item : customerList) {

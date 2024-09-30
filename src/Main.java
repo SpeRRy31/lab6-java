@@ -17,9 +17,10 @@ public class Main {
         System.out.println("7 - Show Customers by range balance");
         System.out.println("8 - Show Customers with null balance");
         System.out.println("9 - Show all Customers");
-        System.out.println("10 - Change Customer by id");
-        System.out.println("11 - Delete Customer by id");
-        System.out.println("12 - Exit");
+        System.out.println("10 - Add Customer by id");
+        System.out.println("11 - Change Customer by id");
+        System.out.println("12 - Delete Customer by id");
+        System.out.println("13 - Exit");
         System.out.printf("\n Input here --> ");
     }
 
@@ -37,7 +38,8 @@ public class Main {
 
     public void run() {
 
-        CustomerArrayManager app = new CustomerArrayManager();
+        //CustomerArrayManager app = new CustomerArrayManager();
+        CustomerListManager app = new CustomerListManager();
         boolean close = false;
         while (!close) {
             switch (menu()) {
@@ -75,12 +77,15 @@ public class Main {
                     pressEnterToContinue();
                     break;
                 case 10:
-                    app.changeCustomerByID();
+//                    app.addCustomer();
                     break;
                 case 11:
-                    app.deleteCustomerByID();
+//                    app.changeCustomerByID();
                     break;
                 case 12:
+//                    app.deleteCustomerByID();
+                    break;
+                case 13:
                     close=true;
                     break;
                 default:
