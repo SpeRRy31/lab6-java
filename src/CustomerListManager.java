@@ -1,16 +1,19 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CustomerListManager {
-    private Customer customerArray[] = new Customer[100];
+public class CustomerListManager implements CustomerManager{
     private String pathtxt= "src/customersList.txt";
     private String pathDat= "src/customersList.dat";
+    private ArrayList<Customer> customerList = new ArrayList<>();
 
-
-
-    public Customer[] getCustomerArray() {
-        return customerArray;
+    public ArrayList<Customer> getCustomerList() {
+        return customerList;
     }
+
+    //do generate customers
+
+/*
 
     public void createCustomers(){
         String nameArray [] = {"Kate",
@@ -74,11 +77,11 @@ public class CustomerListManager {
             customerArray[i] = new Customer(i, surname, name, fathername, address, "1000" + i, "444" + i, Math.random()*1200);
         }
     }
-
+*/
 
     public void printCustomers(){
-        for (int i = 0; i <customerArray.length; i ++) {
-            System.out.println(customerArray[i].toString());
+        for (Customer item : customerList) {
+            System.out.println(item.toString());
         }
     }
 
@@ -86,16 +89,16 @@ public class CustomerListManager {
         System.out.println("input find name: ");
         Scanner s = new Scanner(System.in);
         String name = s.nextLine();
-        for (int i = 0; i <customerArray.length; i ++) {
-            if (customerArray[i].getName().equals(name)){
-                System.out.println(customerArray[i].toString());
+        for (Customer item : customerList) {
+            if (item.getName().equals(name)) {
+                System.out.println(item.toString());
             }
         }
     }
     public void printCustomersBetweenBalanceRange(double min, double max){
-        for (int i = 0; i <customerArray.length; i ++) {
-            if (customerArray[i].getBonusBalance() >= min && customerArray[i].getBonusBalance() <= max){
-                System.out.println(customerArray[i].toString());
+        for (Customer item : customerList) {
+            if (item.getBonusBalance() >= min && item.getBonusBalance() <= max){
+                System.out.println(item.toString());
             }
         }
     }
@@ -106,10 +109,9 @@ public class CustomerListManager {
     }
     public void printCustomersNullBalance(){
         int count = 0;
-        for (int i = 0; i <customerArray.length; i ++){
-            if (customerArray[i].getBonusBalance() == 0){
-                count++;
-                System.out.println(customerArray[i].toString());
+        for (Customer item : customerList) {
+            if (item.getBonusBalance() == 0){
+                System.out.println(item.toString());
             }
         }
     }
@@ -117,9 +119,9 @@ public class CustomerListManager {
     public void saveToTxt(){
         try(FileWriter writer = new FileWriter(pathtxt, false))
         {
-            for (int i = 0; i <customerArray.length; i ++) {
-                writer.write(customerArray[i].toCSVString());
-                writer.append("\n");
+            for (Customer item : customerList) {
+                writer.write(item.toCSVString());
+                writer.write("\n");
             }
             writer.flush();
         }
@@ -130,11 +132,10 @@ public class CustomerListManager {
     public void loadFromTxt(){
         try(BufferedReader reader = new BufferedReader(new FileReader(pathtxt)))
         {
+            customerList.clear();
             String line;
-            int i=0;
             while ((line = reader.readLine()) != null) {
-                customerArray[i]=Customer.fromString(line);
-                i++;
+                customerList.add(Customer.fromString(line));
             }
         }
         catch(IOException ex){
@@ -145,7 +146,7 @@ public class CustomerListManager {
     public void saveToDat(){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(pathDat)))
         {
-            oos.writeObject(customerArray);
+            oos.writeObject(customerList);
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -154,43 +155,12 @@ public class CustomerListManager {
     public void loadFromDat(){
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(pathDat)))
         {
-            customerArray=((Customer[])ois.readObject());
+            customerList=(ArrayList<Customer>)ois.readObject();
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
     }
 
-    public Customer inputCustomer(int id){
-        Scanner s = new Scanner(System.in);
-        System.out.println("input surname");
-        String surname = s.nextLine();
-        System.out.println("input name");
-        String name = s.nextLine();
-        System.out.println("input fathername");
-        String fname = s.nextLine();
-        System.out.println("input address");
-        String address = s.nextLine();
-        System.out.println("input phone number");
-        String phone = s.nextLine();
-        System.out.println("input card number");
-        String card = s.nextLine();
-        System.out.println("input balance");
-        Double bal = s.nextDouble();
-        return new Customer(id, surname, name, fname, address, phone, card, bal);
-    }
-
-    public void deleteCustomerByID(){
-        System.out.println("input Customer ID");
-        Scanner s = new Scanner(System.in);
-        int id = s.nextInt();
-        customerArray[id] = new Customer(id, "none", "none", "none", "none", "none", "none");
-    }
-
-    public void changeCustomerByID(){
-        System.out.println("input Customer ID");
-        Scanner s = new Scanner(System.in);
-        int id = s.nextInt();
-        customerArray[id]=inputCustomer(id);
-    }
+    //do add edit and delete customers
 }
