@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 public class Main {
 
@@ -38,7 +37,7 @@ public class Main {
 
     public void run() {
 
-        CustomerManager app = new CustomerManager();
+        CustomerArrayManager app = new CustomerArrayManager();
         boolean close = false;
         while (!close) {
             switch (menu()) {
@@ -48,16 +47,16 @@ public class Main {
                     pressEnterToContinue();
                     break;
                 case 2:
-                    app.saveToFile();
+                    app.saveToTxt();
                     break;
                 case 3:
-                    app.writeToDat();
+                    app.saveToDat();
                     break;
                 case 4:
-                    app.loadFromFile();
+                    app.loadFromTxt();
                     break;
                 case 5:
-                    app.readFromDat();
+                    app.loadFromDat();
                     break;
                 case 6:
                     app.printCustomersByName();
