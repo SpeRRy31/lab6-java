@@ -77,13 +77,19 @@ public class Main {
                     pressEnterToContinue();
                     break;
                 case 10:
-//                    app.addCustomer();
+                    app.addCustomer();
+                    app.printCustomers();
+                    pressEnterToContinue();
                     break;
                 case 11:
-//                    app.changeCustomerByID();
+                    app.editCustomer();
+                    app.printCustomers();
+                    pressEnterToContinue();
                     break;
                 case 12:
-//                    app.deleteCustomerByID();
+                    app.removeCustomer();
+                    app.printCustomers();
+                    pressEnterToContinue();
                     break;
                 case 13:
                     close=true;
